@@ -1,17 +1,17 @@
 <%-- 
     Document   : b_t_optioncycle1
-    Created on : 2015/9/9, ¤W¤È 10:55:57
+    Created on : 2015/9/9, ä¸Šåˆ 10:55:57
     Author     : jill
 --%>
 
 <!DOCTYPE html>
-<%@page contentType="text/html" pageEncoding="Big5"%>
+<%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@page import = "java.sql.*" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>¬ã¨s¥Í¾Çµ{­pµe</title>
+    <title>ç ”ç©¶ç”Ÿå­¸ç¨‹è¨ˆç•«</title>
 	<!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -31,12 +31,12 @@
             String id = (String)session.getAttribute("user_id");
             String str = new String();
             str = request.getParameter("name");
-            String sql = "SELECT MAX(id) as maxid FROM suggestion_title WHERE suggestion_title.st_id = '"+str+"' AND suggestion_title.te_id = '"+id+"'";
+            String sql = "SELECT MAX(id) as maxid FROM distribute WHERE distribute.st_id = '"+str+"' AND distribute.te_id = '"+id+"'";
             PreparedStatement smt = con.prepareStatement(sql);
            ResultSet rs = smt.executeQuery();
            rs.next();
-           String max = rs.getString(1);
-            String sql2 = "SELECT suggestion_title.te_id,suggestion_title.title,suggestion_title.st_id,suggestion_title.besaw,suggestion_title.title_num,suggestion_title.id FROM suggestion_title RIGHT JOIN distribute ON suggestion_title.id = distribute.id WHERE suggestion_title.id = '"+max+"'";
+           int max = Integer.parseInt(rs.getString(1));
+            String sql2 = "SELECT suggestion_title.te_id,suggestion_title.title,suggestion_title.st_id,suggestion_title.besaw,suggestion_title.title_num,suggestion_title.id FROM suggestion_title WHERE suggestion_title.id = '"+max+"'";
             PreparedStatement smt2 = con.prepareStatement(sql2);
            ResultSet rs2 = smt2.executeQuery();
            
@@ -50,12 +50,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">¬ã¨s¥Í¾Çµ{­pµe</a> 
+                <a class="navbar-brand" href="#">ç ”ç©¶ç”Ÿå­¸ç¨‹è¨ˆç•«</a> 
             </div>
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-btn-adjust">­×§ï±K½X</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">µn¥X</a></div>
+font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-btn-adjust">ä¿®æ”¹å¯†ç¢¼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">ç™»å‡º</a></div>
         </nav>   
            <!-- /. NAV TOP -->
 <nav class="navbar-default navbar-side" role="navigation">
@@ -64,51 +64,51 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
-                    <li><a   href="d_personal.jsp"><i class="fa fa-user fa-3x"></i> °ò¥»¸ê®Æ</a></li>
-                    <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> ¾Çµ{¬ÛÃö³W©w</a></li>
+                    <li><a   href="d_personal.jsp"><i class="fa fa-user fa-3x"></i> åŸºæœ¬è³‡æ–™</a></li>
+                    <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> å­¸ç¨‹ç›¸é—œè¦å®š</a></li>
                     <li>
-                        <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> «ü¾É±Ğ±Â¦P·N®Ñ</a>
+                        <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> æŒ‡å°æ•™æˆåŒæ„æ›¸</a>
                             <ul class="nav nav-second-level">
-                                <li><a  href="a_t_choose.jsp"><i class="fa fa-plus fa-2x"></i> ¬d¬İ«ü¾É±Ğ±Â¦P·N®Ñ</a></li>
+                                <li><a  href="a_t_choose.jsp"><i class="fa fa-plus fa-2x"></i> æŸ¥çœ‹æŒ‡å°æ•™æˆåŒæ„æ›¸</a></li>
                             </ul>
                     </li>
                         
 		     <li>
-                        <a   href="#"><i class="fa fa-file-text fa-3x"></i>½×¤å­pµe®Ñ</a>
+                        <a   href="#"><i class="fa fa-file-text fa-3x"></i>è«–æ–‡è¨ˆç•«æ›¸</a>
                     
                         <ul class="nav nav-second-level">
                             <li>
-                                <a  href="b_t_projects_saw.jsp"><i class="fa fa-plus fa-2x"></i>¼f¬d½×¤å­pµe®Ñ</a>
+                                <a  href="b_t_projects_saw.jsp"><i class="fa fa-plus fa-2x"></i>å¯©æŸ¥è«–æ–‡è¨ˆç•«æ›¸</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a  href="#"><i class="fa fa-refresh fa-3x"></i>®v¥Í¼f¬d·N¨£©¹ªğ</a>
+                        <a  href="#"><i class="fa fa-refresh fa-3x"></i>å¸«ç”Ÿå¯©æŸ¥æ„è¦‹å¾€è¿”</a>
                             <ul class="nav nav-second-level">
-                                <li><a  href="b_t_optioncycle1.jsp"><i class="fa fa-plus fa-2x"></i> ¦Ñ®v·N¨£¦^ÂĞ</a></li>
+                                <li><a  href="b_t_optioncycle1.jsp"><i class="fa fa-plus fa-2x"></i> è€å¸«æ„è¦‹å›è¦†</a></li>
                             </ul>
                     </li>
                     <li>
-                        <a  href="#"><i class="fa fa-edit fa-3x"></i>½×¤å­p¹º®Ñ¤f¸Õ</a>
+                        <a  href="#"><i class="fa fa-edit fa-3x"></i>è«–æ–‡è¨ˆåŠƒæ›¸å£è©¦</a>
                             <ul class="nav nav-second-level">
-                                <li><a  href="b_t_firstoral.jsp"><i class="fa fa-plus fa-2x"></i> ¬d¬İ¤f¸Õ¥Ó½Ğ®Ñ</a></li>
+                                <li><a  href="b_t_firstoral.jsp"><i class="fa fa-plus fa-2x"></i> æŸ¥çœ‹å£è©¦ç”³è«‹æ›¸</a></li>
                             </ul>
                     </li>
                     <li>
-                        <a  href="#"><i class="fa fa-plus-circle fa-3x"></i>½×¤å¥[¤À</a>
+                        <a  href="#"><i class="fa fa-plus-circle fa-3x"></i>è«–æ–‡åŠ åˆ†</a>
                         <ul class="nav nav-second-level">
                             
                         </ul>
                     </li>
                     <li>
-                        <a  href="#"><i class="fa fa-check-square fa-3x"></i>¾Ç¦ì¦Ò¸Õ</a>
+                        <a  href="#"><i class="fa fa-check-square fa-3x"></i>å­¸ä½è€ƒè©¦</a>
                             <ul class="nav nav-second-level">
                                 
                             </ul>
 
                     </li>        
                     <li>
-                        <a   href="#"><i class="fa fa-folder-open fa-3x"></i>¤f¸Õ¤ÎÂ÷®Õµ{§Ç</a>
+                        <a   href="#"><i class="fa fa-folder-open fa-3x"></i>å£è©¦åŠé›¢æ ¡ç¨‹åº</a>
                             <ul class="nav nav-second-level" >
                             </ul>
                     </li> 
@@ -118,14 +118,14 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
 <!-- /. NAV SIDE -->
         <div id="page-wrapper" >
             <ul class="breadcrumb">
-            <li><a href="d_a_index.jsp">­º­¶</a> <span class="divider">/</span></li>
-            <li>½×¤å­pµe®Ñ/</li>
-            <li><a href="b_s_optioncycle1.jsp">¼f¬d·N¨£</a> <span class="divider"></span></li>
+            <li><a href="d_a_index.jsp">é¦–é </a> <span class="divider">/</span></li>
+            <li>è«–æ–‡è¨ˆç•«æ›¸/</li>
+            <li><a href="b_s_optioncycle1.jsp">å¯©æŸ¥æ„è¦‹</a> <span class="divider"></span></li>
             </ul>
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                    <h2>¼f¬d·N¨£</h2>
+                    <h2>å¯©æŸ¥æ„è¦‹</h2>
                     <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
@@ -134,19 +134,19 @@ font-size: 16px;">
                      <div class="table-responsive">
                          <form action="addtitle.jsp?name=<%=str%>" method="post">
                          <table>
-        <tr><td><big>¾Ç¥Í¾Ç¸¹: <%=str%></big></td></tr>
-        <tr><td><big>·s¼W¼f¬d·N¨£¼ĞÃD: </big><input type="text" name="title" size="40"></td></tr>
-	<tr><td><big>¼f¬d·N¨£:</big><br> <textarea rows="5" cols="60" name="suggestion">  
+        <tr><td><big>å­¸ç”Ÿå­¸è™Ÿ: <%=str%></big></td></tr>
+        <tr><td><big>æ–°å¢å¯©æŸ¥æ„è¦‹æ¨™é¡Œ: </big><input type="text" name="title" size="40"></td></tr>
+	<tr><td><big>å¯©æŸ¥æ„è¦‹:</big><br> <textarea rows="5" cols="60" name="suggestion">  
             </textarea></td></tr><P>
             </table>
-               <input type="submit"  name="Insert"  value="°e¥X"" size=100>
-                <input type="reset"   value="²M°£" size=100>
+               <input type="submit"  name="Insert"  value="é€å‡º"" size=100>
+                <input type="reset"   value="æ¸…é™¤" size=100>
                     <br>
                     <br>  
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
            <thead>
              <tr>
-               <td><big>·N¨£Äæ</big></td>
+               <td><big>æ„è¦‹æ¬„</big></td>
              </tr>
            </thead>
                <%

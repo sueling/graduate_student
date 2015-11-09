@@ -1,18 +1,21 @@
 <%-- 
     Document   : addtitle
-    Created on : 2015/9/30, ¤U¤È 08:41:32
+    Created on : 2015/9/30, ä¸‹åˆ 08:41:32
     Author     : jill
 --%>
 
 <!DOCTYPE html>
-<%@ page import="java.sql.*" %>  
-<%@ page  pageEncoding="Big5" contentType="text/html" %>
-<html> 
+
+<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@page import= "java.sql.*" %>
+
+<html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=Big5">
-        <title>addtitle</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>b_s_projects_action</title>
     </head>
-  <%
+    <body>
+        <%
            Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
             String id = (String)session.getAttribute("user_id");
@@ -33,7 +36,7 @@
            rs2.last();
 
            
-        request.setCharacterEncoding("Big5");
+        request.setCharacterEncoding("utf-8");
         String suggestion=request.getParameter("suggestion");
         String te_id=(String)session.getAttribute("user_id");
         String title=request.getParameter("title");
@@ -52,7 +55,9 @@
                 response.sendRedirect("http://localhost:8080/Beautiful/b_t_optioncycle1.jsp?name="+str+"");
             }
             smt.close();
+            smt2.close();
             con.close();
           %>
-</html> 
-
+    </body>
+</html>
+ 

@@ -10,30 +10,30 @@
   <%
            Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            
-            String sql = "SELECT suggestion.te_id,suggestion.st_name,suggestion.title,suggestion.titlenum FROM suggestion"; //st_name暫時不能存 因為資料表沒有st_name
-            String sql2 = "SELECT suggestion.suggestion,suggestion.time FROM suggestion";
+            String id = (String)session.getAttribute("user_id");
+            String str = new String();
+            str = request.getParameter("name");
+            String sql = "SELECT suggestion.title,suggestion.suggestion FROM suggestion"; 
+            String sql2 = "SELECT suggestion.suggestion_num FROM suggestion";
             PreparedStatement smt2 = con.prepareStatement(sql2);
            ResultSet rs2 = smt2.executeQuery();
            PreparedStatement smt = con.prepareStatement(sql);
             ResultSet rs = smt.executeQuery();
-            rs.last();
+            rs2.last();
 
            
         request.setCharacterEncoding("UTF-8");
         String suggestion=request.getParameter("suggestion");
-        String te_id=request.getParameter("te_id");
-        String st_name=request.getParameter("st_name");
-        String title=request.getParameter("title");
-        int num= Integer.parseInt(rs.getString("titlenum"));
+        String title=str;
+        int num= Integer.parseInt(rs2.getString("suggestion_num"));
         num++;
         int titlenum=num;
         
 	
-	sql = "insert into suggestion (te_id,st_name,title,suggestion,titlenum) values ('"+rs.getString(1)+"','"+rs.getString(2)+"','"+rs.getString(3)+"','"+suggestion+"','"+((titlenum))+"')";
+	sql = "insert into suggestion (suggestion,title,suggestion_num) values ('"+suggestion+"','"+str+"','"+titlenum+"')";
             int result = smt.executeUpdate(sql); 
             if(request.getParameter("suggestion")!=null){
-                response.sendRedirect("http://localhost:8080/Beautiful/b_s_optioncycle.jsp");
+                response.sendRedirect("http://localhost:8080/Beautiful/b_s_optioncycle.jsp?name="+str+"");
             }
             smt.close();
             con.close();

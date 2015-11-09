@@ -140,7 +140,7 @@ font-size: 16px;">
 
                          </div>
                      <div class="table-responsive">
-                         <form method="post" action="test3.jsp"> 
+                         <form method="post" action="test3.jsp?name=<%=str%>"> 
                     <table>
                         <td>發言老師編號:&nbsp;&nbsp;<%=rs.getString(1)%></td>
                           <tr><td>學生姓名:&nbsp;&nbsp;<%=rs2.getString(2)%></td></tr>

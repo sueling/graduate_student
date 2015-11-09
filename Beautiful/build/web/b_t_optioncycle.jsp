@@ -121,7 +121,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                     <div class="col-md-12">
                      <h2>師生往返意見回覆 </h2>  
                      <div class="table-responsive">
-                         <form method="post" action="test4.jsp"> 
+                         <form method="post" action="test4.jsp?name=<%=str%>"> 
                     <table>
                         <td>發言老師編號:&nbsp;&nbsp;<%=id%></td>
                           <tr><td>學生學號:&nbsp;&nbsp;<%=st_id%></td></tr>

@@ -37,7 +37,7 @@
             PreparedStatement smt2 = con.prepareStatement(sql2);
            ResultSet rs2 = smt2.executeQuery();
            rs2.next();
-            int maxnum = Integer.valueOf(rs2.getString("maxid"));
+            int maxnum = Integer.parseInt(rs2.getString("maxid"));
             String sql = "SELECT pro_name_chinese,pro_name_english,proposal.st_id FROM proposal RIGHT JOIN distribute ON proposal.st_id = distribute.st_id WHERE distribute.id = '"+maxnum+"'";
            PreparedStatement smt = con.prepareStatement(sql);
            ResultSet rs = smt.executeQuery();
