@@ -1,9 +1,9 @@
+
 <%-- 
     Document   : d_a_index
-    Created on : 2015/11/2, 下午 02:13:13
-    Author     : jill
+    Created on : 2015/4/12, 上午 11:18:23
+    Author     : user
 --%>
-
 <!DOCTYPE html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import = "java.sql.*" %>
@@ -24,13 +24,7 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
-     <%
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            String sql = "SELECT student.st_id,student.grade,student.st_name,proposal.pro_name_english,proposal.pro_name_chinese FROM student,proposal";
-            PreparedStatement smt = con.prepareStatement(sql);
-          ResultSet rs = smt.executeQuery();
-            %>
+     <%= session.getAttribute("user_id")%>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -45,7 +39,7 @@
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a> </div>
+font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_logout.jsp" class="btn btn-danger square-btn-adjust">登出</a> </div>
         </nav> 
     
           <!-- /. NAV TOP  -->
@@ -55,6 +49,7 @@ font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
+                    <li><a   href="d_personal.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
                     <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> 學程相關規定</a></li>
                     <li>
                         <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> 指導教授同意書</a>
@@ -106,7 +101,7 @@ font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
                     </li> 
                 </ul>
             </div>
-        </nav>    
+        </nav>     
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
               <ul class="breadcrumb">
@@ -118,16 +113,15 @@ font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
                      <!--<h2>指導教授同意書</h2>   
                        <h5>某某,您好！</h5>        -->       
                     </div>
+                  
                     <!-- /. ROW  -->
-        </div>
+                </div>
                 <!-- /. PAGE INNER  -->
             </div>
             <!-- /. PAGE WRAPPER  -->
             </div>
     </div>
-    <%
-            con.close();
-          %>
+ 
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-1.10.2.js"></script>

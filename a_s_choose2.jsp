@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+
+<%-- 
+    Document   : d_a_index
+    Created on : 2015/4/12, 上午 11:18:23
+    Author     : user
+--%>
+<!DOCTYPE html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import = "java.sql.*" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,7 +16,7 @@
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-    <!-- MORRIS CHART STYLES-->
+     <!-- MORRIS CHART STYLES-->
     <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
         <!-- CUSTOM STYLES-->
     <link href="assets/css/custom.css" rel="stylesheet" />
@@ -18,12 +24,32 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
-    <%
+     <%= session.getAttribute("user_id")%>
+     <%  
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            String sql = "SELECT student.st_id,student.grade,proposal.pro_name_english,proposal.pro_name_chinese,teacher.time,teacher.te_name FROM student,proposal,teacher";
+            String id = (String)session.getAttribute("user_id");
+            String sql = "SELECT advisor_pro,common_pro1,common_pro2 FROM choose_teacher WHERE st_id = '"+id+"' AND choose_teacher.choose_num = (SELECT MAX(choose_num) FROM choose_teacher)";
             PreparedStatement smt = con.prepareStatement(sql);
-          ResultSet rs = smt.executeQuery();
+            ResultSet rs = smt.executeQuery();
+            rs.next();
+            String advisor_pro,common_pro1,common_pro2;
+            advisor_pro = rs.getString("advisor_pro");
+            common_pro1 = rs.getString("common_pro1");
+            common_pro2 = rs.getString("common_pro2");
+            String sql1 = "SELECT teacher.te_name,choose_teacher.advisor_pro FROM teacher,choose_teacher WHERE teacher.te_id = '"+advisor_pro+"'";
+            PreparedStatement smt1 = con.prepareStatement(sql1);
+            ResultSet rs1 = smt1.executeQuery();
+            String sql2 = "SELECT teacher.te_name,choose_teacher.common_pro1 FROM teacher,choose_teacher WHERE teacher.te_id = '"+common_pro1+"'";
+            PreparedStatement smt2 = con.prepareStatement(sql2);
+            ResultSet rs2 = smt2.executeQuery();
+            String sql3 = "SELECT teacher.te_name,choose_teacher.common_pro2 FROM teacher,choose_teacher WHERE teacher.te_id = '"+common_pro2+"'";
+            PreparedStatement smt3 = con.prepareStatement(sql3);
+            ResultSet rs3 = smt3.executeQuery();
+            rs1.next();
+            rs2.next();
+            rs3.next();
+            
             %>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
@@ -34,21 +60,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="b_mainperson.jsp">研究生學程計畫</a> 
+                <a class="navbar-brand" href="index.jsp">研究生學程計畫</a> 
             </div>
-  <div style="color: white;
+ <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="b_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
-        </nav>   
-           <!-- /. NAV TOP -->
-<nav class="navbar-default navbar-side" role="navigation">
+font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_logout.jsp" class="btn btn-danger square-btn-adjust">登出</a> </div>
+        </nav> 
+    
+          <!-- /. NAV TOP  -->
+               <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
-                    <li><a   href="d_newest.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
+                    <li><a   href="d_personal.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
                     <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> 學程相關規定</a></li>
                     <li>
                         <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> 指導教授同意書</a>
@@ -104,55 +131,52 @@ font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
             </div>
             
         </nav>     
-<!-- /. NAV SIDE -->
+        <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
-            <ul class="breadcrumb">
-            <li><a href="d_index.jsp">首頁</a> <span class="divider">/</span></li>
-            <li>論文計畫書/</li>
-            <li><a href="b_s_firstoral.jsp">申請口試</a> <span class="divider"></span></li>
-            </ul>
+              <ul class="breadcrumb">
+                  <li class="active">首頁</li>
+             </ul> 
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>申請口試 </h2>  
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    已選擇指導教授
+                                    <thead>
+                                        <tr>
+                                            <th>基本資料</th>
+                                            <th>指導教授</th> 
+                                            <th>共同指導教授</th> 
+                                            <th>共同指導教授</th> 
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <tr>
+                                            <th>姓名</th>
+                                            
+                                            <td><%=rs1.getString("te_name")%></td>
+                                    
+                                    
+                                            <td><%=rs2.getString("te_name")%></td>
+                                   
+                                   
+                                            <td><%=rs3.getString("te_name")%></td>
+                                   
+                                        </tr>                                     
+                                    </tbody>
+                                    
+                                </table>
+                                請等候老師的回覆
                     </div>
+                  
+                    <!-- /. ROW  -->
                 </div>
-                                    <%
-                                        while(rs.next()){
-                                            String st_id = rs.getString(1);
-                                            String grade = rs.getString(2);
-                                            String pro_name_english = rs.getString(3);
-                                            String pro_name_chinese = rs.getString(4);
-                                            String time = rs.getString(5);
-                                            String te_name = rs.getString(6);
-                                          %>
-                <p><font　face="標楷體"　color="#cc33ff"　size="7">學生學號 : <b><%=st_id%></b></font></p>
-                <p><font　face="標楷體"　color="#cc33ff"　size="7">期別 : <b><%=grade%></b></font></p>
-             <p><font　face="標楷體"　color="#cc33ff"　size="7">論文計劃書題目(英文) : <b><%=pro_name_english%></b></font></p>
-       <p><font　face="標楷體"　color="#cc33ff"　size="7">論文計劃書題目(中文) : <b><%=pro_name_chinese%></b></font></p>
-<form id="form1" name="form1" method="post" action="">
-<p>請選擇欲口試時段:日期(date)<select name="select"></select>&nbsp;時段(time)<select name="select"></select></p>
-</form>
-<form id="form1" name="form1" method="post" action="">
-<p>請選擇口試老師(firstoral_name1):<select name="select"></select></p>
-</form>
-                                    <%
-                                        }
-                                            %>
-<br>
-<p><form>
-                                    <input type=button  value="送出" size=100>
-                               </form>
-                            </p>
-    </div>
-             <!-- /. PAGE INNER  -->
+                <!-- /. PAGE INNER  -->
             </div>
-         <!-- /. PAGE WRAPPER  -->
-        </div>
-        <%
-            con.close();
-          %>
-     <!-- /. WRAPPER  -->
+            <!-- /. PAGE WRAPPER  -->
+            </div>
+    </div>
+ 
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-1.10.2.js"></script>
@@ -160,6 +184,9 @@ font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="assets/js/jquery.metisMenu.js"></script>
+     <!-- MORRIS CHART SCRIPTS -->
+     <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>
       <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
     

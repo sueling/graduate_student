@@ -18,15 +18,6 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>   
-    <%= session.getAttribute("user_id")%>
-    <%
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            String id = (String)session.getAttribute("user_id");
-            String sql2 = "SELECT teacher.te_name,committee.c_id FROM teacher,committee where c_id='"+id+"'";
-            PreparedStatement smt2 = con.prepareStatement(sql2);
-          ResultSet rs2 = smt2.executeQuery();
-            %>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -36,12 +27,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">研究生學程計畫</a> 
+                <a class="navbar-brand" href="b_mainperson.jsp">研究生學程計畫</a> 
             </div>
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
+font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="b_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
         </nav>   
            <!-- /. NAV TOP -->
 <nav class="navbar-default navbar-side" role="navigation">
@@ -50,7 +41,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
-                    <li><a   href="d_t_personal.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
+                    <li><a   href="d_newest.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
                     <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> 學程相關規定</a></li>
                     <li>
                         <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> 指導教授同意書</a>
@@ -90,7 +81,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
 <!-- /. NAV SIDE -->
         <div id="page-wrapper" >
             <ul class="breadcrumb">
-            <li><a href="d_c_index.jsp">首頁</a> <span class="divider">/</span></li>
+            <li><a href="d_index.jsp">首頁</a> <span class="divider">/</span></li>
             <li>論文計畫書/</li>
             <li><a href="b_c_distribute.jsp">分派審查論文計畫書</a> <span class="divider"></span></li>
             </ul>
@@ -99,7 +90,13 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                     <div class="col-md-12">
                      <h2>分派審查論文計畫書</h2> 
                     </div>
-                     
+                     <%
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
+            String sql2 = "SELECT teacher.te_name FROM teacher";
+            PreparedStatement smt2 = con.prepareStatement(sql2);
+          ResultSet rs2 = smt2.executeQuery();
+            %>
                 &nbsp;<div class="table-responsive">
                       <table class="table table-striped table-bordered table-hover" id="dataTables-example">
           <tbody>

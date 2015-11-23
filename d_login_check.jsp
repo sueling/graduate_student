@@ -15,7 +15,7 @@
     <body>
         <%
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
+            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student?useUnicode=true&characterEncoding=utf8&characterResultSets=utf8","root","1234");
             Statement smt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             // 我們自訂 Session 的屬性名稱以及屬性值
             String id = request.getParameter("user_id");

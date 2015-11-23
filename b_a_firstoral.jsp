@@ -25,23 +25,12 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
-    <%= session.getAttribute("user_id")%>
     <%
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            String id = (String)session.getAttribute("user_id");
-            String sql = "SELECT * FROM firstoral_test";
-            String sql2 = "SELECT * FROM student RIGHT JOIN firstoral_test ON student.st_id = firstoral_test.st_id";
-            String sql3= "SELECT * FROM teacher RIGHT JOIN firstoral_test ON teacher.te_id = firstoral_test.te_id";
-            String sql4= "SELECT * FROM proposal RIGHT JOIN firstoral_test ON proposal.st_id = firstoral_test.st_id";
+            String sql = "SELECT student.st_id,student.grade,student.st_name,proposal.pro_name_english,proposal.pro_name_chinese,teacher.time,teacher.te_name FROM student,proposal,teacher";
             PreparedStatement smt = con.prepareStatement(sql);
            ResultSet rs = smt.executeQuery();
-           PreparedStatement smt3= con.prepareStatement(sql3);
-           ResultSet rs3= smt3.executeQuery();
-           PreparedStatement smt2 = con.prepareStatement(sql2);
-           ResultSet rs2= smt2.executeQuery();
-           PreparedStatement smt4 = con.prepareStatement(sql4);
-           ResultSet rs4= smt4.executeQuery();
           
             %>
     <div id="wrapper">
@@ -53,12 +42,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">研究生學程計畫</a> 
+                <a class="navbar-brand" href="d_index.jsp">研究生學程計畫</a> 
             </div>
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
+font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
         </nav>   
            <!-- /. NAV TOP -->
   <nav class="navbar-default navbar-side" role="navigation">
@@ -67,6 +56,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
+                    <li><a   href="d_newest.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
                     <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> 學程相關規定</a></li>
                     <li>
                         <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> 指導教授同意書</a>
@@ -122,7 +112,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
 <!-- /. NAV SIDE -->
         <div id="page-wrapper" >
             <ul class="breadcrumb">
-            <li><a href="d_a_index.jsp">首頁</a> <span class="divider">/</span></li>
+            <li><a href="d_index.jsp">首頁</a> <span class="divider">/</span></li>
             <li>論文計畫書/</li>
             <li><a href="b_a_firstoral.jsp">申請口試</a> <span class="divider"></span></li>
             </ul>
@@ -144,36 +134,30 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                <td><big>口試老師</big></td>
              </tr>
            </thead>
-                <tbody>
-            
-                <%
-                while(rs.next()&&rs2.next()&&rs3.next()&&rs4.next()){
-                   String st_id = rs2.getString(1);
-                   String grade = rs2.getString(8);
-                   String st_name = rs2.getString(2);
-                   String pro_name_english = rs4.getString(3);
-                   String pro_name_chinese = rs4.getString(4);
-                   String oral_time = rs.getString(2);
-                   String te_name = rs3.getString(2);
+               <%
+                while(rs.next()){
+                   String st_id = rs.getString(1);
+                   String grade = rs.getString(2);
+                   String st_name = rs.getString(3);
+                   String pro_name_english = rs.getString(4);
+                   String pro_name_chinese = rs.getString(5);
+                   String time = rs.getString(6);
+                   String te_name = rs.getString(7);
                 %>
+                <tbody>
             <tr>
-            <td><b><%=st_id%></b></td>
+             <td><b><%=st_id%></b></td>
              <td><b><%=grade%></b></td>
              <td><b><%=st_name%></b></td>
              <td><b><%=pro_name_english%></b></td>
              <td><b><%=pro_name_chinese%></b></td>
-             <td><b><%=oral_time%></b></td>
+             <td><b><%=time%></b></td>
              <td><b><%=te_name%></b></td>
-             </tr>
-             <br>
-             <%
-              }
-             %>
-             </tr>
-            
-            
+            </tr>
            </tbody>
-           
+           <%
+              }
+            %>
          </table>
            <p><form><div align="right"><input type=button  value="送出" size=100></div>
                                     
@@ -188,10 +172,6 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
         </div>
     </div>
         <%
-           rs.close();
-           rs2.close();
-           rs3.close();
-           rs4.close();
               con.close();
             %> 
      <!-- /. WRAPPER  -->

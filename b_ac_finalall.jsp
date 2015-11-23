@@ -28,7 +28,7 @@
     <%
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            String sql = "SELECT student.st_id,student.grade,student.st_name,proposal.pro_name_english,proposal.pro_name_chinese,distribute.score1,distribute.score2,distribute.score3 FROM student,proposal,distribute";
+            String sql = "SELECT distribute.st_id,student.grade,student.st_name,proposal.pro_name_english,proposal.pro_name_chinese,distribute.finalall FROM student,proposal,distribute";
             PreparedStatement smt = con.prepareStatement(sql);
            ResultSet rs = smt.executeQuery();
           
@@ -47,68 +47,57 @@
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
+font-size: 16px;"><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
         </nav>   
            <!-- /. NAV TOP -->
 <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
-				<li class="text-center">
-                    <img src="assets/img/find_user.png" class="user-image img-responsive"/>
-					</li>
-                    <li><a   href="d_newest.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
-                    <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> 學程相關規定</a></li>
-                    <li>
-                        <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> 指導教授同意書</a>
-                            <ul class="nav nav-second-level">
-                                <li><a  href="a_a_choose.jsp"><i class="fa fa-plus fa-2x"></i> 統整指導教授同意書</a></li>
-                            </ul>
-                    </li>
-                        
-		     <li>
-                        <a   href="#"><i class="fa fa-file-text fa-3x"></i>論文計畫書</a>
-                    
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a  href="b_a_projects_list.jsp"><i class="fa fa-plus fa-2x"></i>論文計畫書審查名冊</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a  href="#"><i class="fa fa-list-alt fa-3x"></i>論文計畫書審查結果</a>
-                            <ul class="nav nav-second-level">
-                                <li><a  href="b_a_finalall.jsp"><i class="fa fa-plus fa-2x"></i> 審查成績冊</a></li>
-                            </ul>
-                    </li>
-                    <li>
-                        <a  href="#"><i class="fa fa-edit fa-3x"></i>論文計劃書口試</a>
-                            <ul class="nav nav-second-level">
-                                <li><a  href="b_a_firstoral.jsp"><i class="fa fa-plus fa-2x"></i> 口試名冊</a></li>
-                            </ul>
-                    </li>
-                    <li>
-                        <a  href="#"><i class="fa fa-plus-circle fa-3x"></i>論文加分</a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="c_a_add_end.jsp"><i class="fa fa-plus fa-2x"></i> 加分匯總表</a></li>
-                        </ul>    
-                    </li>
-                    <li>
-                        <a  href="#"><i class="fa fa-check-square fa-3x"></i>學位考試</a>
-                        <ul class="nav nav-second-level">
-                                        <li><a href="c_a_oral_end.jsp"><i class="fa fa-plus fa-2x"></i> 口試申請匯總表</a></li>
-                                        <li><a href="c_a_oral4_end.jsp"><i class="fa fa-plus fa-2x"></i>論文題要匯總表</a>
-                                        <li><a href="c_a_oral2_end.jsp"><i class="fa fa-plus fa-2x"></i>論文考試申請匯總表</a>
-                        </ul>
-                    </li>        
-                    <li>
-                        <a   href="#"><i class="fa fa-folder-open fa-3x"></i>口試及離校程序</a>
-                            <ul class="nav nav-second-level" >
-                                <a href="c_a_vote_end.jsp"><i class="fa fa-plus fa-2x"></i>投票結果表</a>
-                            </ul>
-                    </li> 
-                </ul>
-            </div>
-        </nav>     
+<div class="sidebar-collapse">
+<ul class="nav" id="main-menu">
+<li class="text-center">
+<img src="assets/img/find_user.png" class="user-image img-responsive"/>
+</li>
+<li>
+<a href="d_newest.jsp"><i class="fa fa-dashboard fa-3x"></i> 最新消息</a>
+</li>
+<li>
+<a href="b_plan.jsp"><i class="fa fa-desktop fa-3x"></i> 學程計畫表</a>
+</li>
+<li>
+<a href="b_rule.jsp"><i class="fa fa-bar-chart-o fa-3x"></i> 學程相關規定</a>
+</li>
+<li>
+<a  href="a_choose_2.jsp"><i class="fa fa-qrcode fa-3x"></i> 指導教授同意書</a>
+</li>
+<li>
+<a class="active-menu" href="#"><i   class="fa fa-bar-chart-o fa-3x"></i>論文計畫書</a>
+<ul class="nav nav-second-level">
+<li>
+<a href="b_projects.jsp"><i class="fa fa-plus fa-2x"></i>上傳論文計畫書</a>
+</li>
+<li>
+<a href="b_optioncycle.jsp"><i class="fa fa-plus fa-2x"></i>師生審查意見往返</a>
+</li>
+<li>
+<a class="active-menu" href="b_finalall.jsp"><i class="fa fa-plus fa-2x"></i>審查結果</a>
+</li>
+<li>
+<a href="b_firstoral.jsp"><i class="fa fa-plus fa-2x"></i>申請口試</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#"><i class="fa fa-folder fa-3x"></i> 論文初稿及加分</a>
+<ul class="nav nav-second-level">
+<li><a href="c-add_point3.jsp"><i class="fa fa-plus fa-2x"></i> 加分</a></li>
+<li><a href="c-oral1.jsp"><i class="fa fa-pencil fa-2x"></i> 學位考試</a></li>
+</ul>
+</li> 
+<li>
+<a href="c-firstoral.jsp"><i class="fa fa-bar-chart-o fa-3x"></i>口試及離校程序</a>
+</li> 
+</ul>
+</div>
+</nav> 
 <!-- /. NAV SIDE -->
         <div id="page-wrapper" >
             <ul class="breadcrumb">
@@ -126,8 +115,7 @@ float: right;
 font-size: 16px;"><a href="#" class="btn btn-warning"><big>列印審查成績冊</big></a>
 
                          </div>
-                     &nbsp;<div class="table-responsive">
-                      <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                     &nbsp;<table td align='center';table style="border: 5px groove rgb(109, 2, 107); background-color: rgb(255, 255, 255); width: 800px;" align="left" cellpadding="5" cellspacing="5" frame="border" rules="all">
            <thead>
              <tr>
                <td><big>學號</big></td>
@@ -135,9 +123,7 @@ font-size: 16px;"><a href="#" class="btn btn-warning"><big>列印審查成績冊
                <td><big>姓名</big></td>
                <td><big>論文計劃書題目(英文)</big></td>
                <td><big>論文計劃書題目(中文)</big></td>
-               <td><big>審查結果1</big></td>
-               <td><big>審查結果2</big></td>
-               <td><big>審查結果3</big></td>
+               <td><big>審查結果</big></td>
              </tr>
            </thead>
                <%
@@ -147,9 +133,7 @@ font-size: 16px;"><a href="#" class="btn btn-warning"><big>列印審查成績冊
                    String st_name = rs.getString(3);
                    String pro_name_english = rs.getString(4);
                    String pro_name_chinese = rs.getString(5);
-                   String score1 = rs.getString(6);
-                   String score2 = rs.getString(7);
-                   String score3 = rs.getString(8);
+                   String finalall = rs.getString(6);
                 %>
                 <tbody>
             <tr>
@@ -158,9 +142,7 @@ font-size: 16px;"><a href="#" class="btn btn-warning"><big>列印審查成績冊
              <td><b><%=st_name%></b></td>
              <td><b><%=pro_name_english%></b></td>
              <td><b><%=pro_name_chinese%></b></td>
-             <td><b><%=score1%></b></td>
-             <td><b><%=score2%></b></td>
-             <td><b><%=score3%></b></td>
+             <td><b><%=finalall%></b></td>
             </tr>
              <%
               }
@@ -169,7 +151,7 @@ font-size: 16px;"><a href="#" class="btn btn-warning"><big>列印審查成績冊
          </table>
                     </div>
               
-                    </div> 
+                     
              <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->
