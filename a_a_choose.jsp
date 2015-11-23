@@ -24,6 +24,7 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
+    <%= session.getAttribute("user_id")%>
      <%
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
@@ -95,14 +96,14 @@ font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
                         <a  href="#"><i class="fa fa-check-square fa-3x"></i>學位考試</a>
                         <ul class="nav nav-second-level">
                                         <li><a href="c_a_oral_end.jsp"><i class="fa fa-plus fa-2x"></i> 口試申請匯總表</a></li>
-                                        <li><a href="c_a_oral4_end.jsp"><i class="fa fa-plus fa-2x"></i>論文題要匯總表</a>
-                                            <li><a href="c_a_oral2_end.jsp"><i class="fa fa-plus fa-2x"></i>論文考試申請匯總表</a></li>
+                                        <li><a href="c_a_oral4_end.jsp"><i class="fa fa-plus fa-2x"></i>論文題要匯總表</a></li>
+                                        <li><a href="c_a_oral2_end.jsp"><i class="fa fa-plus fa-2x"></i>論文考試申請匯總表</a></li>
                         </ul>
                     </li>        
                     <li>
                         <a   href="#"><i class="fa fa-folder-open fa-3x"></i>口試及離校程序</a>
                             <ul class="nav nav-second-level" >
-                                <a href="c_a_vote_end.jsp"><i class="fa fa-plus fa-2x"></i>投票結果表</a>
+                                <li><a href="c_a_vote_end.jsp"><i class="fa fa-plus fa-2x"></i>投票結果表</a></li>
                             </ul>
                     </li> 
                 </ul>

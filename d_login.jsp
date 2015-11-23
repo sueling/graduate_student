@@ -1,5 +1,5 @@
 <%-- 
-    Document   : login1
+    Document   : login
     Created on : 2014/12/24, 上午 10:40:41
     Author     : lin
 --%>
@@ -43,6 +43,7 @@
                         </div>
                         <div class="panel-body">
                             <form role="form" action="d_login_check.jsp" method="post">
+                                
                                 <br />
                                 <div class="form-group input-group">
                                     <span class="input-group-addon">

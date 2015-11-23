@@ -24,17 +24,20 @@
 </head>
 <body>
     <%= session.getAttribute("user_id")%>
-     <%  
+        <%  
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
             String id = (String)session.getAttribute("user_id");
-            String st_name = request.getParameter("st_name");
-            String grade = request.getParameter("grade");
-            String s_id = request.getParameter("s_id");
             String sql = "SELECT student.st_name,student.grade,student.st_id from student where st_id = '"+id+"' ";
+            String sql1 = "SELECT te_name FROM teacher";
+            
             PreparedStatement smt = con.prepareStatement(sql);
+            PreparedStatement smt1 = con.prepareStatement(sql1);
+
             ResultSet rs = smt.executeQuery();
-            %>
+            ResultSet rs1 = smt1.executeQuery();
+
+        %>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -134,7 +137,7 @@ font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
                     <!-- 指導教授同意書 -->
                     <div class="panel panel-default">                      
                         <div class="panel-body">
-                            <form action="a_s_choose_v.jsp" method=get>
+                            <form action="a_s_choose_v.jsp" method=post>
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
@@ -180,6 +183,10 @@ font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
                                         </tr>                                     
                                     </tbody>
                                 </table>
+                                
+                                   
+                                
+                                <div class="form-group">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <h>二、指導教授基本資料</h>
                                     <thead>
@@ -190,15 +197,45 @@ font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
                                             <th>共同指導教授</th> 
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
                                         <tr>
                                             <th>姓名</th>
-                                            <td><input type="text" name="advisor_pro"></td>
-                                            <td><input type="text" name="common_pro1"></td>
-                                            <td><input type="text" name="common_pro2"></td>
+                                            <td>
+                                                <select class="form-control" name="advisor_pro">
+                                                    <% while(rs1.next()){ %>
+                                                    <option><%=rs1.getString("te_name")%></option>
+                                                    <%
+                                                        }
+                                                    %>    
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="form-control" name="common_pro1">
+                                                    <% 
+                                                        rs1 = smt1.executeQuery();
+                                                        while(rs1.next()){ %>
+                                                        <option><%=rs1.getString("te_name")%></option>
+                                                    <%
+                                                        }
+                                                    %>    
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="form-control" name="common_pro2">
+                                                    <% 
+                                                        rs1 = smt1.executeQuery();
+                                                        while(rs1.next()){ %>
+                                                        <option><%=rs1.getString("te_name")%></option>
+                                                    <%
+                                                        }
+                                                    %>    
+                                                </select>
+                                            </td>
                                         </tr>                                     
                                     </tbody>
                                 </table>
+                                </div>
                             </div>
                                 <div align="right">
                                     <input type=submit name=SEND class="btn btn-success ">

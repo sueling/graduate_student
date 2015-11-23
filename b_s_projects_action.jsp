@@ -4,7 +4,7 @@
     Author     : lin
 --%>
 
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import= "java.sql.*" %>
@@ -15,26 +15,20 @@
         <title>b_s_projects_action</title>
     </head>
     <body>
+        
         <%  
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            String id = (String)session.getAttribute("user_id");
-            String sql = "SELECT proposal.pro_name_chinese,proposal.pro_name_english,proposal.st_id,proposal.pro_num,student.st_id,student.grade FROM proposal,student";
-            PreparedStatement smt = con.prepareStatement(sql);
-            ResultSet rs = smt.executeQuery();
-            rs.last();
+            Statement smt = con.createStatement();
             
             request.setCharacterEncoding("UTF-8");
             String pro_name_chinese = request.getParameter("pro_name_chinese");
             String pro_name_english = request.getParameter("pro_name_english");
-            int pro_num= Integer.parseInt(rs.getString("pro_num"));
-            pro_num++;
-            int pronum=pro_num;
             
-            sql = "insert into proposal (pro_name_chinese,pro_name_english,st_id,pro_num) values ('"+pro_name_chinese+"','"+pro_name_english+"','"+id+"','"+(pronum)+"')";
+            String sql = "insert into proposal (pro_name_chinese,pro_name_english) values ('"+pro_name_chinese+"','"+pro_name_english+"')";
             int result = smt.executeUpdate(sql);
             if(request.getParameter("pro_name_chinese")!=null){
-                response.sendRedirect("http://localhost:8080/Beautiful/b_s_projects_upload.jsp");
+                response.sendRedirect("http://localhost:8080/Bootshaha/student/b_s_projects.jsp");
             }
             smt.close();
             con.close();

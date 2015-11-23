@@ -26,13 +26,41 @@
 </head>
 <body>
     <%=session.getAttribute("user_id")%>
-     <%
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            String sql = "SELECT student.st_id,student.grade,student.st_name FROM student";
-            PreparedStatement smt = con.prepareStatement(sql);
-          ResultSet rs = smt.executeQuery();
-            %>
+    <%
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
+        String id = (String)session.getAttribute("user_id");
+        
+        String sql1 = "SELECT student.st_id,student.st_name,student.grade FROM student RIGHT OUTER JOIN choose_teacher ON student.st_id = choose_teacher.st_id WHERE choose_teacher.advisor_pro='"+id+"' OR choose_teacher.common_pro1 = '"+id+"' OR choose_teacher.common_pro2 = '"+id+"'";
+        PreparedStatement smt1 = con.prepareStatement(sql1);
+        ResultSet rs1 = smt1.executeQuery();
+        
+        String sql = "SELECT COUNT(*) FROM student WHERE student.grade = '59'";
+        PreparedStatement smt = con.prepareStatement(sql);
+        ResultSet rs = smt.executeQuery();
+        rs.next();
+        int countStudent = rs.getInt("COUNT(*)");
+        
+        
+        String sql2 = "SELECT COUNT(*) FROM teacher WHERE teacher.export = '1'";
+        PreparedStatement smt2 = con.prepareStatement(sql2);
+        ResultSet rs2 = smt2.executeQuery();
+        rs2.next();
+        int countTeacher = rs2.getInt("COUNT(*)");
+        double limitPoint = (double)countStudent/countTeacher;
+        int limitPoint0 = countStudent/countTeacher;
+       
+        //無條件進位問題
+        if(limitPoint - limitPoint0>0){
+            limitPoint0 = limitPoint0 + 1;
+        }else if(limitPoint - limitPoint0 < 0){
+            out.print("<center><font color=red size=6>不可能</font>");
+        }else{
+        }
+
+        
+    %> 
+    
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -119,7 +147,9 @@ font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
                     <div class="col-md-12">
                      <h2>指導教授同意書</h2>  
                        <h5>某某,您好！</h5>
-                       
+                       <h5>可得點數：<%=limitPoint0%></h5>
+                       <h5>學生數：<%=countStudent%></h5>
+                       <h5>老師數：<%=countTeacher%></h5> 
                     </div>
                 </div>
                  <!-- /. ROW  -->
@@ -135,24 +165,19 @@ font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
                                             <th>同意</th> 
                                             <th>不同意</th>
                                         </tr>
-                                    </thead>
-                                        <%
-                                            while(rs.next()){
-                                               String st_id = rs.getString(1);
-                                               String grade = rs.getString(2);
-                                               String st_name = rs.getString(3);
-                                        %>
+                                    </thead> 
+                                    <%while(rs1.next()){%>
                                         <tbody>
                                             <tr>
-                                             <td><b><%=st_id%></b></td>
-                                             <td><b><%=grade%></b></td>
-                                             <td><b><a href=a_t_choose1.jsp"><%=st_name%></a></b></td>
+                                             <td><b><%=rs1.getString("st_id")%></b></td>
+                                             <td><b><%=rs1.getString("grade")%></b></td>
+                                             <td><b><a href=a_t_choose1.jsp"><%=rs1.getString("st_name")%></a></b></td>
                                              <td><input type="radio" name="examine" value="Yes"></td>
-                                             <td><input type="radio" name="examine" value="Yes"></td> 
+                                             <td><input type="radio" name="examine" value="No"></td> 
                                             </tr>
-                                        <%
-                                          }
-                                        %>
+                                    <%
+                                        }
+                                    %>
                                        </tbody>
                                        
                                 </table>

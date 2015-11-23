@@ -24,17 +24,12 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
-    <%= session.getAttribute("user_id")%>
     <%
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            String id = (String)session.getAttribute("user_id");
-           String sql = "SELECT * FROM student RIGHT JOIN proposal ON student.st_id = proposal.st_id";
-            String sql2 = "SELECT * FROM proposal LEFT JOIN student ON proposal.st_id = student.st_id";
+            String sql = "SELECT student.st_id,student.grade,student.st_name,proposal.pro_name_english,proposal.pro_name_chinese,distribute.score1,distribute.score2,distribute.score3 FROM student,proposal,distribute";
             PreparedStatement smt = con.prepareStatement(sql);
            ResultSet rs = smt.executeQuery();
-           PreparedStatement smt2 = con.prepareStatement(sql2);
-           ResultSet rs2 = smt2.executeQuery();
           
             %>
     <div id="wrapper">
@@ -46,12 +41,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">研究生學程計畫</a> 
+                <a class="navbar-brand" href="d_index.jsp">研究生學程計畫</a> 
             </div>
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
+font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
         </nav>   
            <!-- /. NAV TOP -->
 <nav class="navbar-default navbar-side" role="navigation">
@@ -60,7 +55,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
-                    <li><a   href="d_t_personal.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
+                    <li><a   href="d_newest.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
                     <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> 學程相關規定</a></li>
                     <li>
                         <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> 指導教授同意書</a>
@@ -100,9 +95,9 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
 <!-- /. NAV SIDE -->
         <div id="page-wrapper" >
             <ul class="breadcrumb">
-            <li><a href="d_c_index.jsp">首頁</a> <span class="divider">/</span></li>
+            <li><a href="d_index.jsp">首頁</a> <span class="divider">/</span></li>
             <li>論文計畫書/</li>
-            <li><a href="b_c_finalall.jsp">審查成績冊</a> <span class="divider"></span></li>
+            <li><a href="b_ac_finalall.jsp">審查成績冊</a> <span class="divider"></span></li>
             </ul>
             <div id="page-inner">
                 <div class="row">
@@ -123,17 +118,21 @@ font-size: 16px;"><a href="#" class="btn btn-warning"><big>列印審查成績冊
                <td><big>姓名</big></td>
                <td><big>論文計劃書題目(英文)</big></td>
                <td><big>論文計劃書題目(中文)</big></td>
-               <td><big>審查結果</big></td>
+               <td><big>審查結果1</big></td>
+               <td><big>審查結果2</big></td>
+               <td><big>審查結果3</big></td>
              </tr>
            </thead>
-                <%
-                while(rs2.next()&&rs.next()){
-                String st_id = rs2.getString(2);
-                String grade = rs.getString(8);
-                String st_name = rs.getString(2);
-                String pro_name_english = rs2.getString(3);
-                String pro_name_chinese = rs2.getString(4);
-                int final_score = Integer.parseInt(rs2.getString(5));
+               <%
+                while(rs.next()){
+                   String st_id = rs.getString(1);
+                   String grade = rs.getString(2);
+                   String st_name = rs.getString(3);
+                   String pro_name_english = rs.getString(4);
+                   String pro_name_chinese = rs.getString(5);
+                   String score1 = rs.getString(6);
+                   String score2 = rs.getString(7);
+                   String score3 = rs.getString(8);
                 %>
                 <tbody>
             <tr>
@@ -142,7 +141,9 @@ font-size: 16px;"><a href="#" class="btn btn-warning"><big>列印審查成績冊
              <td><b><%=st_name%></b></td>
              <td><b><%=pro_name_english%></b></td>
              <td><b><%=pro_name_chinese%></b></td>
-             <td><b><%=final_score%></b></td>  
+             <td><b><%=score1%></b></td>
+             <td><b><%=score2%></b></td>
+             <td><b><%=score3%></b></td>
             </tr>
              <%
               }

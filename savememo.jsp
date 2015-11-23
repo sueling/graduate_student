@@ -5,7 +5,7 @@
   <%
            Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            Statement smt = con.createStatement();
+            Statement smt=con.createStatement();
             ResultSet rs;
             String sql;
            
@@ -39,5 +39,8 @@
                 smt.execute(sql);
 		response.sendRedirect("d_index.jsp");
 	}
+%>
+ 
+	 <%
             con.close();
           %>

@@ -23,6 +23,7 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
+    <%= session.getAttribute("user_id")%>
      <%
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
@@ -44,7 +45,7 @@
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a> </div>
+font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_logout.jsp" class="btn btn-danger square-btn-adjust">登出</a> </div>
         </nav> 
     
           <!-- /. NAV TOP  -->
@@ -54,6 +55,7 @@ font-size: 15px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
+                    <li><a   href="d_personal.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
                     <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> 學程相關規定</a></li>
                     <li>
                         <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> 指導教授同意書</a>

@@ -18,26 +18,15 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
-    <%= session.getAttribute("user_id")%>
     <%
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            String id = (String)session.getAttribute("user_id");
-            String sql = "SELECT proposal.st_id,proposal.pro_name_english,proposal.pro_name_chinese,proposal.final_score FROM proposal where proposal.st_id = '"+id+"'";
-            String sql2 = "SELECT * FROM distribute where distribute.st_id = '"+id+"'";
-            String sql3 = "SELECT student.st_id,student.st_name,student.grade FROM student where student.st_id = '"+id+"'";
+            String sql = "SELECT student.st_id,student.grade,student.st_name,proposal.pro_name_english,proposal.pro_name_chinese FROM student,proposal";
+            String sql2 = "SELECT distribute.account1,distribute.account2,distribute.account3,distribute.score1,distribute.score2,distribute.score3 FROM distribute";
             PreparedStatement smt = con.prepareStatement(sql);
             PreparedStatement smt2 = con.prepareStatement(sql2);
-            PreparedStatement smt3 = con.prepareStatement(sql3);
            ResultSet rs = smt.executeQuery();
            ResultSet rs2 = smt2.executeQuery();
-           ResultSet rs3 = smt3.executeQuery();
-           rs.next();
-           rs2.next();
-           rs3.next();
-           int score1 = Integer.parseInt(rs2.getString(5));
-           int score2 = Integer.parseInt(rs2.getString(6));
-           int score3 = Integer.parseInt(rs2.getString(7));
             %>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
@@ -48,12 +37,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">研究生學程計畫</a> 
+                <a class="navbar-brand" href="b_mainperson.jsp">研究生學程計畫</a> 
             </div>
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
+font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="b_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
         </nav>   
            <!-- /. NAV TOP -->
 <nav class="navbar-default navbar-side" role="navigation">
@@ -62,7 +51,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
-                    <li><a   href="d_s_personal.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
+                    <li><a   href="d_newest.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
                     <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> 學程相關規定</a></li>
                     <li>
                         <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> 指導教授同意書</a>
@@ -81,7 +70,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                     <li>
                         <a  href="#"><i class="fa fa-refresh fa-3x"></i>師生審查意見往返</a>
                             <ul class="nav nav-second-level">
-                                <li><a  href="b_s_optioncycle1.jsp"><i class="fa fa-plus fa-2x"></i> 學生意見回覆</a></li>
+                                <li><a  href="b_s_optioncycle.jsp"><i class="fa fa-plus fa-2x"></i> 學生意見回覆</a></li>
                             </ul>
                     </li>
                     <li>
@@ -121,7 +110,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
 <!-- /. NAV SIDE -->
         <div id="page-wrapper" >
             <ul class="breadcrumb">
-            <li><a href="d_s_index.jsp">首頁</a> <span class="divider">/</span></li>
+            <li><a href="d_index.jsp">首頁</a> <span class="divider">/</span></li>
             <li>論文計畫書/</li>
             <li><a href="b_s_result.jsp">審查結果</a> <span class="divider"></span></li>
             </ul>
@@ -130,55 +119,57 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                     <div class="col-md-12">
                      <h2>審查結果 </h2>  
                     </div>
-                </div>    
-                      
-        <p><font　face="標楷體"　color="#cc33ff"　size="7">&nbsp;&nbsp;學生學號 :　<%=id%><b></b></font></p>
-        <p><font　face="標楷體"　color="#cc33ff"　size="7">&nbsp;&nbsp;期別:　<%=rs3.getString(3)%><b></b></font></p>
-        <p><font　face="標楷體"　color="#cc33ff"　size="7">&nbsp;&nbsp;姓名:　<%=rs3.getString(2)%><b></b></font></p>
-        <p><font　face="標楷體"　color="#cc33ff"　size="7">&nbsp;&nbsp;論文計劃書題目(英文) : <%=rs.getString(2)%><b></b></font></p>
-        <p><font　face="標楷體"　color="#cc33ff"　size="7">&nbsp;&nbsp;論文計劃書題目(中文) : <%=rs.getString(3)%><b></b></font></p>
-        <div class="table-responsive" >
-            <table class="table table-striped table-bordered table-hover" >                
-           <thead>
+                                    
+        <p><font　face="標楷體"　color="#cc33ff"　size="7">&nbsp;&nbsp;學生學號 :　<b></b></font></p>
+        <p><font　face="標楷體"　color="#cc33ff"　size="7">&nbsp;&nbsp;期別:　<b></b></font></p>
+        <p><font　face="標楷體"　color="#cc33ff"　size="7">&nbsp;&nbsp;姓名:　<b></b></font></p>
+        <p><font　face="標楷體"　color="#cc33ff"　size="7">&nbsp;&nbsp;論文計劃書題目(英文) : <b></b></font></p>
+        <p><font　face="標楷體"　color="#cc33ff"　size="7">&nbsp;&nbsp;論文計劃書題目(中文) : <b></b></font></p>
+       
+        &nbsp;<div class="table-responsive">
+                      <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+              <%
+                            while(rs2.next()){
+                                String account1 = rs2.getString(1);
+                                String account2 = rs2.getString(2);
+                                String account3 = rs2.getString(3);
+                                String score1 = rs2.getString(4);
+                                String score2 = rs2.getString(5);
+                                String score3 = rs2.getString(6);  
+                                %>
+           <tbody>
              <tr>
-               <td align="center">老師編號</td>
-               <td align="center">審查結果</td>
+               <td>老師編號</td>
+               <td>審查結果</td>
              </tr>
-           </thead>
-            <tbody>
              <tr>
-               <td align="center"><b><%=rs2.getString(2)%></b></td>
-               <td align="center"><b><%=score1%></b></td>
+               <td><b><%=account1%></b></td>
+               <td><b><%=score1%></b></td>
              </tr>
              <tr>
-               <td align="center"><b><%=rs2.getString(3)%></b></td>
-               <td align="center"><b><%=score2%></b></td>
+               <td><b><%=account2%></b></td>
+               <td><b><%=score2%></b></td>
              </tr>
              <tr>
-               <td align="center"><b><%=rs2.getString(4)%></b></td>
-               <td align="center"><b><%=score3%></b></td>
+               <td><b><%=account3%></b></td>
+               <td><b><%=score3%></b></td>
              </tr>
            </tbody>
-        </table>
-         <%
-         int scoreall = score1+score2+score3;
-         if(scoreall<2){
-         out.print("審查結果 : 不通過");
-         }else{
-         out.print("審查結果 : 通過");
-         }
-         %>
-        <b><p>&nbsp;&nbsp;<a   href="b_s_firstoral.jsp">申請口試</a></p></b>
+             <%
+                }
+             %>
+         </table>
+             </div>
         </div>
+         
+        <b><p><font　face="標楷體"　color="#cc33ff"　size="7">&nbsp;&nbsp;審查結果 : 通過或不通過</font></p></b>
+        <b><p>&nbsp;&nbsp;<a   href="b_firstoral.jsp">申請口試</a></p></b>
              <!-- /. PAGE INNER  -->
-            
+            </div>
         </div>
     </div>
          
         <%
-         rs.close();
-         rs2.close();
-         rs3.close();
             con.close();
           %>
      <!-- /. WRAPPER  -->
