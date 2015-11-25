@@ -39,12 +39,6 @@
            ResultSet rs2 = smt2.executeQuery();
            PreparedStatement smt3 = con.prepareStatement(sql3);
            ResultSet rs3 = smt3.executeQuery();
-           PreparedStatement smt4 = con.prepareStatement(sql);
-           ResultSet rs4 = smt4.executeQuery();
-           PreparedStatement smt5 = con.prepareStatement(sql2);
-           ResultSet rs5 = smt5.executeQuery();
-           PreparedStatement smt6 = con.prepareStatement(sql3);
-           ResultSet rs6 = smt6.executeQuery();
             %>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
@@ -69,7 +63,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
-                    <li><a   href="d_personal.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
+                    <li><a   href="d_t_personal.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
                     <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> 學程相關規定</a></li>
                     <li>
                         <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> 指導教授同意書</a>
@@ -90,13 +84,14 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                     <li>
                         <a  href="#"><i class="fa fa-refresh fa-3x"></i>師生審查意見往返</a>
                             <ul class="nav nav-second-level">
-                                <li><a  href="b_t_optioncycle1.jsp"><i class="fa fa-plus fa-2x"></i> 老師意見回覆</a></li>
+                                <li><a  href="b_t_optioncycle2.jsp"><i class="fa fa-plus fa-2x"></i> 老師意見回覆</a></li>
                             </ul>
                     </li>
                     <li>
                         <a  href="#"><i class="fa fa-edit fa-3x"></i>論文計劃書口試</a>
                             <ul class="nav nav-second-level">
-                                <li><a  href="b_t_firstoral.jsp"><i class="fa fa-plus fa-2x"></i> 查看口試申請書</a></li>
+                                <li><a  href="b_t_firstoral.jsp"><i class="fa fa-plus fa-2x"></i> 學生申請論文計劃書審查口試</a></li>
+                                <li><a  href="b_t_accept_oral.jsp"><i class="fa fa-plus fa-2x"></i> 已接受論文計劃書審查口試申請名冊</a></li>
                             </ul>
                     </li>
                     <li>
@@ -125,12 +120,12 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
             <ul class="breadcrumb">
             <li><a href="d_t_index.jsp">首頁</a> <span class="divider">/</span></li>
             <li>論文計畫書/</li>
-            <li><a href="b_t_firstoral.jsp">申請口試</a> <span class="divider"></span></li>
+            <li><a href="b_t_firstoral.jsp">學生申請論文計劃書審查口試</a> <span class="divider"></span></li>
             </ul>
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>申請口試</h2>  
+                     <h2>學生申請論文計劃書審查口試</h2>  
                      
                      &nbsp;<div class="table-responsive">
                       <table class="table table-striped table-bordered table-hover" id="dataTables-example">

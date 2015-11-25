@@ -89,8 +89,8 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                     <li>
                         <a  href="#"><i class="fa fa-edit fa-3x"></i>論文計劃書口試</a>
                             <ul class="nav nav-second-level">
-                                <li><a  href="b_t_firstoral.jsp"><i class="fa fa-plus fa-2x"></i> 查看口試申請書</a></li>
-                                <li><a  href="b_t_accept_oral.jsp"><i class="fa fa-plus fa-2x"></i> 已接受學生口試申請名冊</a></li>
+                                <li><a  href="b_t_firstoral.jsp"><i class="fa fa-plus fa-2x"></i>學生申請論文計劃書審查口試</a></li>
+                                <li><a  href="b_t_accept_oral.jsp"><i class="fa fa-plus fa-2x"></i> 已接受論文計劃書審查口試申請名冊</a></li>
                             </ul>
                     </li>
                     <li>
@@ -119,12 +119,12 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
             <ul class="breadcrumb">
             <li><a href="d_t_index.jsp">首頁</a> <span class="divider">/</span></li>
             <li>論文計畫書/</li>
-            <li><a href="b_t_firstoral.jsp">申請口試</a> <span class="divider"></span></li>
+            <li><a href="b_t_firstoral.jsp">學生申請論文計劃書審查口試</a> <span class="divider"></span></li>
             </ul>
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>申請口試</h2>  
+                     <h2>學生申請論文計劃書審查口試</h2>  
                      
                      &nbsp;<div class="table-responsive">
                       <table class="table table-striped table-bordered table-hover" id="dataTables-example">

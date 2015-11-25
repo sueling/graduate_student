@@ -92,7 +92,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                         <a  href="#"><i class="fa fa-edit fa-3x"></i>論文計劃書口試</a>
                             <ul class="nav nav-second-level">
                                 <li><a  href="b_t_firstoral.jsp"><i class="fa fa-plus fa-2x"></i> 查看口試申請書</a></li>
-                                <li><a  href="b_t_accept_oral.jsp"><i class="fa fa-plus fa-2x"></i> 已接受學生口試申請名冊</a></li>
+                                <li><a  href="b_t_accept_oral.jsp"><i class="fa fa-plus fa-2x"></i> 已接受論文計劃書審查口試申請名冊</a></li>
                             </ul>
                     </li>
                     <li>
@@ -121,7 +121,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
             <ul class="breadcrumb">
             <li><a href="d_a_index.jsp">首頁</a> <span class="divider">/</span></li>
             <li>論文計畫書/</li>
-            <li><a href="b_s_optioncycle2.jsp">學生論文計畫書審查意見</a> <span class="divider"></span></li>
+            <li><a href="b_s_optioncycle2.jsp">學生申請論文計劃書審查口試</a> <span class="divider"></span></li>
             <li><a href="b_s_optioncycle1.jsp">審查意見標題</a> <span class="divider"></span></li>
             </ul>
             <div id="page-inner">

@@ -51,7 +51,7 @@
             sql = "UPDATE distribute SET score = '"+pass+"' WHERE distribute.st_id = '"+str+"' AND distribute.te_id = '"+id+"' AND distribute.over = '"+att+"'";
             int result = smt.executeUpdate(sql);
             if(pass==2){
-            sql3 = "insert into distribute (st_id,te_id,id) values ('"+str+"','"+id+"','"+finalmax+"')";
+            sql3 = "insert into distribute (st_id,te_id,over,id) values ('"+str+"','"+id+"','"+attforfun+"','"+finalmax+"')";
             sql2 = "UPDATE distribute SET over = '"+attforfun+"' WHERE distribute.st_id = '"+str+"' AND distribute.te_id = '"+id+"' AND distribute.over = '"+att+"'";
             int result2 = smt2.executeUpdate(sql2);
             int result3 = smt3.executeUpdate(sql3);

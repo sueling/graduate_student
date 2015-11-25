@@ -25,13 +25,22 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
+    <%= session.getAttribute("user_id")%>
     <%
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            String sql = "SELECT student.st_id,student.grade,student.st_name,proposal.pro_name_english,proposal.pro_name_chinese,teacher.te_name FROM student,proposal,teacher";
+            String id = (String)session.getAttribute("user_id");
+            String sql = "SELECT proposal.st_id,proposal.pro_name_english,proposal.pro_name_chinese FROM proposal RIGHT JOIN distribute ON proposal.st_id = distribute.st_id";
+            String sql2 = "SELECT * FROM student RIGHT JOIN distribute ON student.st_id = distribute.st_id";
+            String sql3 = "SELECT * FROM distribute LEFT JOIN teacher ON distribute.account1 = teacher.te_id";
+            String sql4 = "SELECT * FROM distribute LEFT JOIN teacher ON distribute.account1 = teacher.te_id";
+            String sql5 = "SELECT * FROM distribute LEFT JOIN teacher ON distribute.account1 = teacher.te_id";
             PreparedStatement smt = con.prepareStatement(sql);
            ResultSet rs = smt.executeQuery();
-          
+           PreparedStatement smt2 = con.prepareStatement(sql2);
+           ResultSet rs2 = smt2.executeQuery();
+           PreparedStatement smt3 = con.prepareStatement(sql3);
+           ResultSet rs3 = smt3.executeQuery();
             %>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
@@ -42,12 +51,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="d_index.jsp">研究生學程計畫</a> 
+                <a class="navbar-brand" href="#">研究生學程計畫</a> 
             </div>
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
+font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
         </nav>   
            <!-- /. NAV TOP -->
   <nav class="navbar-default navbar-side" role="navigation">
@@ -56,7 +65,6 @@ font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
-                    <li><a   href="d_newest.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
                     <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> 學程相關規定</a></li>
                     <li>
                         <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> 指導教授同意書</a>
@@ -112,7 +120,7 @@ font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
 <!-- /. NAV SIDE -->
         <div id="page-wrapper" >
             <ul class="breadcrumb">
-            <li><a href="d_index.jsp">首頁</a> <span class="divider">/</span></li>
+            <li><a href="d_a_index.jsp">首頁</a> <span class="divider">/</span></li>
             <li>論文計畫書/</li>
             <li><a href="b_a_projects_list.jsp">論文計劃書審查名冊</a> <span class="divider"></span></li>
             </ul>
@@ -137,16 +145,20 @@ font-size: 16px;"><a href="#" class="btn btn-warning"><big>列印論文計劃書
                <td><big>論文計劃書題目(英文)</big></td>
                <td><big>論文計劃書題目(中文)</big></td>
                <td><big>審查老師</big></td>
+               <td><big>審查老師</big></td>
+               <td><big>審查老師</big></td>
              </tr>
            </thead>
                <%
-                while(rs.next()){
+                while(rs.next()&&rs2.next()&&rs3.next()){
                    String st_id = rs.getString(1);
-                   String grade = rs.getString(2);
-                   String st_name = rs.getString(3);
-                   String pro_name_english = rs.getString(4);
-                   String pro_name_chinese = rs.getString(5);
-                   String te_name = rs.getString(6);
+                   String grade = rs2.getString(8);
+                   String st_name = rs2.getString(2);
+                   String pro_name_english = rs.getString(2);
+                   String pro_name_chinese = rs.getString(3);
+                   String account1 = rs3.getString(2);
+                   String account2 = rs3.getString(3);
+                   String account3 = rs3.getString(4);
                 %>
                 <tbody>
             <tr>
@@ -155,7 +167,9 @@ font-size: 16px;"><a href="#" class="btn btn-warning"><big>列印論文計劃書
              <td><b><%=st_name%></b></td>
              <td><b><%=pro_name_english%></b></td>
              <td><b><%=pro_name_chinese%></b></td>
-             <td><b><%=te_name%></b></td>
+             <td><b><%=account1%></b></td>
+             <td><b><%=account2%></b></td>
+             <td><b><%=account3%></b></td>
             </tr>
            </tbody>
          <%

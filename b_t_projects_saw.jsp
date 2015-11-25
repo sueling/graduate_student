@@ -18,12 +18,19 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
+    <%= session.getAttribute("user_id")%>
     <%
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
-            String sql = "SELECT student.st_id,student.grade,student.st_name,proposal.pro_name_english,proposal.pro_name_chinese FROM student,proposal";
-            PreparedStatement smt = con.prepareStatement(sql);
-          ResultSet rs = smt.executeQuery();
+            String id = (String)session.getAttribute("user_id");
+            int over1=0;
+            String sql2 = "SELECT student.st_id,student.st_name,student.grade FROM student RIGHT JOIN distribute ON student.st_id = distribute.st_id WHERE distribute.over = '"+over1+"' AND distribute.te_id = '"+id+"'";
+            PreparedStatement smt2 = con.prepareStatement(sql2);
+            ResultSet rs2 = smt2.executeQuery();
+           String sql3 = "SELECT proposal.pro_name_english,proposal.pro_name_chinese,proposal.st_id FROM proposal RIGHT JOIN distribute ON proposal.st_id = distribute.st_id WHERE distribute.over = '"+over1+"' AND distribute.te_id = '"+id+"'";
+          PreparedStatement smt3 = con.prepareStatement(sql3);
+          ResultSet rs3 = smt3.executeQuery();
+          
             %>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
@@ -34,12 +41,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="b_mainperson.jsp">研究生學程計畫</a> 
+                <a class="navbar-brand" href="#">研究生學程計畫</a> 
             </div>
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="b_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
+font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-btn-adjust">修改密碼</a><a href="d_login.jsp" class="btn btn-danger square-btn-adjust">登出</a></div>
         </nav>   
            <!-- /. NAV TOP -->
 <nav class="navbar-default navbar-side" role="navigation">
@@ -48,7 +55,7 @@ font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
 				<li class="text-center">
                     <img src="assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
-                    <li><a   href="d_newest.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
+                    <li><a   href="d_t_personal.jsp"><i class="fa fa-user fa-3x"></i> 基本資料</a></li>
                     <li><a   href="d_rule.jsp"><i class="fa fa-book fa-3x"></i> 學程相關規定</a></li>
                     <li>
                         <a  href="#"><i class="fa fa-file-archive-o fa-3x"></i> 指導教授同意書</a>
@@ -69,13 +76,14 @@ font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
                     <li>
                         <a  href="#"><i class="fa fa-refresh fa-3x"></i>師生審查意見往返</a>
                             <ul class="nav nav-second-level">
-                                <li><a  href="b_t_optioncycle.jsp"><i class="fa fa-plus fa-2x"></i> 老師意見回覆</a></li>
+                                <li><a  href="b_t_optioncycle2.jsp"><i class="fa fa-plus fa-2x"></i> 老師意見回覆</a></li>
                             </ul>
                     </li>
                     <li>
                         <a  href="#"><i class="fa fa-edit fa-3x"></i>論文計劃書口試</a>
                             <ul class="nav nav-second-level">
-                                <li><a  href="b_t_firstoral.jsp"><i class="fa fa-plus fa-2x"></i> 查看口試申請書</a></li>
+                                <li><a  href="b_t_firstoral.jsp"><i class="fa fa-plus fa-2x"></i>學生申請論文計劃書審查口試</a></li>
+                                <li><a  href="b_t_accept_oral.jsp"><i class="fa fa-plus fa-2x"></i> 已接受論文計劃書審查口試申請名冊</a></li>
                             </ul>
                     </li>
                     <li>
@@ -102,7 +110,7 @@ font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
 <!-- /. NAV SIDE -->
         <div id="page-wrapper" >
             <ul class="breadcrumb">
-            <li><a href="d_index.jsp">首頁</a> <span class="divider">/</span></li>
+            <li><a href="d_t_index.jsp">首頁</a> <span class="divider">/</span></li>
             <li>論文計畫書/</li>
             <li><a href="b_t_projects_saw.jsp">審查論文計畫書</a> <span class="divider"></span></li>
             </ul>
@@ -112,7 +120,6 @@ font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
                      <h2>審查論文計畫書</h2>  
                     </div>
                 </div>
-                
                  &nbsp;<div class="table-responsive">
                       <table class="table table-striped table-bordered table-hover" id="dataTables-example">
            <tbody>
@@ -127,25 +134,26 @@ font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
                <td>輸入成績</td>
              </tr>
                <%
-                    while(rs.next()){
-                        String st_id = rs.getString(1);
-                        String grade = rs.getString(2);
-                        String st_name = rs.getString(3);
-                        String pro_name_english = rs.getString(4);
-                        String pro_name_chinese = rs.getString(5);
+                    while(rs2.next()&&rs3.next()){
+                        String st_id = rs2.getString(1);
+                        String grade = rs2.getString(3);
+                        String st_name = rs2.getString(2);
+                        String pro_name_english = rs3.getString(1);
+                        String pro_name_chinese = rs3.getString(2);
                                             %>
              <tr>
                <td><b><%=st_id%></b></td>
-               <td><b><%=grade%></b></td>
+              <td><b><%=grade%></b></td>
                <td><b><%=st_name%></b></td>
                <td><b><%=pro_name_english%></b></td>
                <td><b><%=pro_name_chinese%></b></td>
                <td><b></b></td>
-               <td><b><a href="b_t_optioncycle.jsp">意見回覆</a></b></td>
-               <td><b><form>
-                    <input type=radio value="對應值一" name="選項名稱"> 通過
-                    <input type=radio value="對應值二" name="選項名稱"> 不通過
-                    <input type=radio value="對應值三" name="選項名稱"> 修改後審
+               <td><b><a href="b_t_optioncycle1.jsp?name=<%=st_id%>">意見回覆</a></b></td>
+               <td><b><form method="post" action="proposalscore.jsp?name1=<%=st_id%>">
+                    <input type=radio value="3" name="passornot"> 通過
+                    <input type=radio value="2" name="passornot"> 不通過
+                    <input type=radio value="1" name="passornot"> 修改後審
+                    <p><form><input type="submit"  name="Submit"  value="送出" size=100></form></p>
                 </form></b></td>
              </tr>
                <%
@@ -155,7 +163,6 @@ font-size: 16px;"><a href="d_registeration.jsp" class="btn btn-danger square-btn
            </tbody>
          </table>
                 </div>
-             <p><form><input type=button  value="送出" size=100></form></p>
     </div>
              <!-- /. PAGE INNER  -->
             </div>

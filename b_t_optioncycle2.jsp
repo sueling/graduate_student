@@ -88,8 +88,8 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                     <li>
                         <a  href="#"><i class="fa fa-edit fa-3x"></i>論文計劃書口試</a>
                             <ul class="nav nav-second-level">
-                                <li><a  href="b_t_firstoral.jsp"><i class="fa fa-plus fa-2x"></i> 查看口試申請書</a></li>
-                                <li><a  href="b_t_accept_oral.jsp"><i class="fa fa-plus fa-2x"></i> 已接受學生口試申請名冊</a></li>
+                                <li><a  href="b_t_firstoral.jsp"><i class="fa fa-plus fa-2x"></i>學生申請論文計劃書審查口試</a></li>
+                                <li><a  href="b_t_accept_oral.jsp"><i class="fa fa-plus fa-2x"></i> 已接受論文計劃書審查口試申請名冊</a></li>
                             </ul>
                     </li>
                     <li>
