@@ -135,6 +135,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                <td><big>姓名</big></td>
                <td><big>論文計劃書題目(英文)</big></td>
                <td><big>論文計劃書題目(中文)</big></td>
+               <td><big>日期</big></td>
                <td><big>時間</big></td>
                <td><big></big></td>
                <td><big></big></td>
@@ -146,9 +147,10 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                    String st_name = rs2.getString(2);
                    String pro_name_english = rs3.getString(3);
                    String pro_name_chinese = rs3.getString(4);
-                   String oral_time = rs.getString(2);
-                   int accept = Integer.parseInt(rs.getString(4));
-                   int besaw = Integer.parseInt(rs.getString(5));
+                   String date = rs.getString(5);
+                   String time = rs.getString(6);
+                   int accept = Integer.parseInt(rs.getString(3));
+                   int besaw = Integer.parseInt(rs.getString(4));
                    if(accept==1&&besaw==1){
                     %>     
            </thead>
@@ -159,7 +161,8 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
              <td><b><%=st_name%></b></td>
              <td><b><%=pro_name_english%></b></td>
              <td><b><%=pro_name_chinese%></b></td>
-             <td><b><%=oral_time%></b></td>
+             <td><b><%=date%></b></td>
+             <td><b><%=time%></b></td>
              <td><b>已接受學生口試申請</b></td>
              <td><form method="post" action="noshow_first_oral.jsp?name=<%=st_id%>">
                              <input type="submit"  name="Submit"  value="隱藏" size=100></form></td>

@@ -1,10 +1,10 @@
 <%-- 
     Document   : upload4
-    Created on : 2015/9/22, ¤U¤È 03:32:50
+    Created on : 2015/9/22, ä¸‹åˆ 03:32:50
     Author     : jill
 --%>
 <!DOCTYPE html>
-<%@page contentType="text/html" pageEncoding="Big5"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Enumeration"%> 
 <%@ page import="com.oreilly.servlet.MultipartRequest" %> 
 <%@ page import="java.io.File" %> 
@@ -14,19 +14,21 @@
   </head> 
   <body> 
     <% 
-    //¤å¥ó¤W?¦Z¡A«O¦s¦bd://upload 
-    String saveDirectory = "d://upload"; 
+    //æ–‡ä»¶ä¸Š?åŽï¼Œä¿å­˜åœ¨d://upload 
+    String path=application.getRealPath(request.getRequestURI());
+    String dir=new File(path).getParent();
+    String saveDirectory = "C:/Users/jill/Documents/NetBeansProjects/Beautiful/web/upload"; 
     
-    //¨C?¤å¥ó³Ì¤j5m,³Ì¦h3?¤å¥ó    
+    //æ¯?æ–‡ä»¶æœ€å¤§5m,æœ€å¤š3?æ–‡ä»¶    
   int maxPostSize = 3 * 5 * 1024 * 1024; 
     
-    //responseªº???"gb2312",¦P?ªö¥Î¯Ê¬Ùªº¤å¥ó¦W?¬ð¸Ñ?µ¦²¤,??¤W?   
+    //responseçš„???"gb2312",åŒ?é‡‡ç”¨ç¼ºçœçš„æ–‡ä»¶å?çªè§£?ç­–ç•¥,??ä¸Š?   
 
 MultipartRequest multi = new MultipartRequest(request, 
                                                   saveDirectory, 
                                                   maxPostSize, 
-                                                  "Big5"); 
-    //?¥X¤Ï?«H®§   
+                                                  "UTF-8"); 
+    //?å‡ºå?ä¿¡æ¯   
  java.util.Enumeration file = multi.getFileNames(); 
     
     while (file.hasMoreElements()) { 
@@ -46,7 +48,7 @@ MultipartRequest multi = new MultipartRequest(request,
         } 
     }                                
 %> 
-  <a href="b_s_projects.jsp">¦^¤W¶Ç½×¤å­pµe®Ñ</a>
+  <a href="b_s_projects.jsp">å›žä¸Šå‚³è«–æ–‡è¨ˆç•«æ›¸</a>
   </body> 
 </html> 
 

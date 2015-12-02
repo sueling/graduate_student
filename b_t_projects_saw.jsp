@@ -129,7 +129,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                <td>姓名</td>
                <td>論文計畫書題目(英文)</td>
                <td>論文計畫書題目(中文)</td>
-               <td>觀看論文計畫書</td>
+               <td>下載論文計畫書</td>
                <td>意見回覆</td>
                <td>輸入成績</td>
              </tr>
@@ -147,7 +147,7 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                <td><b><%=st_name%></b></td>
                <td><b><%=pro_name_english%></b></td>
                <td><b><%=pro_name_chinese%></b></td>
-               <td><b></b></td>
+               <td><b><a href="b_t_projects_download.jsp?name=<%=st_id%>">下載</a></b></td>
                <td><b><a href="b_t_optioncycle1.jsp?name=<%=st_id%>">意見回覆</a></b></td>
                <td><b><form method="post" action="proposalscore.jsp?name1=<%=st_id%>">
                     <input type=radio value="3" name="passornot"> 通過

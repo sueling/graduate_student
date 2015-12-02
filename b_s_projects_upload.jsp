@@ -28,6 +28,8 @@
     <%      Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
             String id = (String)session.getAttribute("user_id");
+            String str = new String();
+            str = request.getParameter("name");
             String sql = "SELECT student.st_id,student.grade,student.st_name FROM student where student.st_id = '"+id+"'";
             String sql2 = "SELECT proposal.pro_name_chinese,proposal.pro_name_english,proposal.pro_num,student.st_id FROM proposal,student where student.st_id = '"+id+"'";
             PreparedStatement smt = con.prepareStatement(sql);
@@ -130,8 +132,13 @@ font-size: 16px;"><a href="d_changepassword.jsp" class="btn btn-danger square-bt
                 </div>
                 <div class="table-responsive">
                 <br>
-                <form name="form1"  method="post" enctype="multipart/form-data" action="upload4.jsp">
-                選擇檔案：<input name="file1" type="file">
+                <big>注意 : 1.請將論文計畫書存為PDF再進行上傳&nbsp;&nbsp;
+                       2.請將論文計劃書檔名改為自己的學號，方便老師審查，否則將不予計算
+                </big>
+                <br>
+                    <br>
+                    <form name="form1"  method="post" enctype="multipart/form-data" action="upload4.jsp?name=<%=str%>">
+                        選擇檔案：<input name="file1" type="file" value="瀏覽" >
                 <p>
                 <input name="Submit" type="submit" value="上傳">&nbsp;&nbsp;&nbsp;<input type="reset" value="清除" >
                 </p>   

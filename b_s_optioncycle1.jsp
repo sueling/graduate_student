@@ -29,7 +29,12 @@
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/graduate student","root","1234");
             String id = (String)session.getAttribute("user_id");
-            String sql2 = "SELECT suggestion_title.title,suggestion_title.besaw FROM suggestion_title WHERE suggestion_title.besaw = '1' AND suggestion_title.st_id = '"+id+"'";
+            String sql = "SELECT MAX(id) as maxid FROM distribute WHERE distribute.st_id = '"+id+"'";
+            PreparedStatement smt = con.prepareStatement(sql);
+           ResultSet rs = smt.executeQuery();
+           rs.next();
+           int max = Integer.parseInt(rs.getString(1));
+            String sql2 = "SELECT suggestion_title.title,suggestion_title.besaw FROM suggestion_title WHERE suggestion_title.besaw = '1' AND suggestion_title.st_id = '"+id+"' AND suggestion_title.id = '"+max+"'";
             PreparedStatement smt2 = con.prepareStatement(sql2);
            ResultSet rs2 = smt2.executeQuery();
           
